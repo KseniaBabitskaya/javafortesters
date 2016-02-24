@@ -12,12 +12,17 @@ public class Point2 {
     Point p1 = new Point(1, 9);
     Point p2 = new Point(5, 7);
 
-//    p1.a = 5;
-//    p2.b = 7;
+    System.out.println("функция работает: " + "a = " + p1.a + "& b = " + p2.b + " >>> " + p.distance(p1, p2));
+    System.out.println("метод работает: "  + "a = " + p1.a + "& b = " + p2.b + " >>> " + distance(p1, p2));
 
-//    System.out.println(p1.a + " --- " + p2.b + " >>> " + distance(p1, p2));
-    System.out.println(p1.a + " --- " + p2.b + " >>> " + p.distance(p1, p2));
+//    System.out.println(p.distance());
+
   }
+
+  public static double distance(Point p1, Point p2){
+    return Math.sqrt((p1.a - p2.a)*(p1.a - p2.a)+ (p1.b -p2.b)*(p1.b -p2.b));
+  }
+
 
 
 }
