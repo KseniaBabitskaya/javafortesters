@@ -8,11 +8,12 @@ package ru.stqa.pft.sandbox;
   public static void main(String args[]){
 
     Point p = new Point();
-    Point p1 = new Point(1, 9);
-    Point p2 = new Point(5, 7);
 
-    System.out.println("функция работает: " + "a = " + p1.a + "& b = " + p2.b + " >>> " + p.distance(p1, p2));
-    System.out.println("метод работает: "  + "a = " + p1.a + "& b = " + p2.b + " >>> " + distance(p1, p2));
+    Point p1 = new Point(7, 6);
+    Point p2 = new Point(3, 8);
+
+    System.out.println("функция работает >>> " +  + p.distance(p1, p2));
+    System.out.println("метод работает >>> "  +  + distance(p1, p2));
   }
 
   public static double distance(Point p1, Point p2){
