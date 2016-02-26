@@ -15,6 +15,7 @@ public class PointTests {
     Point p1 = new Point(1,6);
     Point p2 = new Point(5, 2);
     Assert.assertEquals(p.distance(p1, p2), distanceToCheckResult(p1, p2));
+    Assert.assertEquals(p.distance(p1, p2), 5.656854249492381);
 
     System.out.println("Expected result: " + distanceToCheckResult(p1, p2));
     System.out.println("Actual result: " + p.distance(p1, p2));
