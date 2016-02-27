@@ -24,13 +24,12 @@ public class ContactCreationTest {
     @Test
     public void ContactCreationTest() {
         wd.get("http://localhost/addressbook/");
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).sendKeys("admin");
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).sendKeys("secret");
-        wd.findElement(By.cssSelector("html")).click();
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-        wd.findElement(By.linkText("add new")).click();
+        login();
+        initContactCreation();
+        fillContactCreationForm();
+    }
+
+    private void fillContactCreationForm() {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys("aa");
@@ -47,6 +46,19 @@ public class ContactCreationTest {
         wd.findElement(By.name("home")).clear();
         wd.findElement(By.name("home")).sendKeys("aaa");
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    private void initContactCreation() {
+        wd.findElement(By.linkText("add new")).click();
+    }
+
+    private void login() {
+        wd.findElement(By.name("user")).click();
+        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("pass")).click();
+        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.cssSelector("html")).click();
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
 
     @AfterMethod
