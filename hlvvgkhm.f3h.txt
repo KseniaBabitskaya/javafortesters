@@ -1,0 +1,20 @@
+﻿Revert "Добавлено использование "делегирования""
+
+This reverts commit 3478ee1e9ba8cbaacfd9d153b58582819d98e9a3.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	renamed:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/tests/ContactCreationTest.java -> addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/ContactCreationTest.java
+#	renamed:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/model/ContactData.java -> addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/ContactData.java
+#	new file:   addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupCreationTests.java
+#	renamed:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/model/GroupData.java -> addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupData.java
+#	renamed:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/tests/GroupDeletionTests.java -> addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupDeletionTests.java
+#	renamed:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/appmanager/ApplicationManager.java -> addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/TestBase.java
+#	deleted:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/tests/GroupCreationTests.java
+#	deleted:    addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/tests/TestBase.java
+#
+
