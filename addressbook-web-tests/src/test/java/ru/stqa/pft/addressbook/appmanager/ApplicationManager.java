@@ -14,15 +14,16 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
-
+  private ContactHelper contactHelper;
 
   public void init() {
-    navigationHelper.wd = new FirefoxDriver();
-    navigationHelper.wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    navigationHelper.wd.get("http://localhost/addressbook/group.php");
-    groupHelper = new GroupHelper(navigationHelper.wd);
+    wd = new FirefoxDriver();
+    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.get("http://localhost/addressbook/group.php");
+    groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+    contactHelper = new ContactHelper(wd);
     sessionHelper.login("admin", "secret");
   }
 
@@ -38,5 +39,10 @@ public class ApplicationManager {
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
+  }
+
+
+  public ContactHelper getContactHelper() {
+    return contactHelper;
   }
 }
