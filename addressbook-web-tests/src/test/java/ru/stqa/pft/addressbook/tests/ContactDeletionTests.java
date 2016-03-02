@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 /**
  * Created by fedotk on 3/2/2016.
  */
-public class ContactDeleteTests extends TestBase {
+public class ContactDeletionTests extends TestBase {
   @Test
   public void testContactDeletion(){
     app.getNavigationHelper().gotoHomePage();
