@@ -26,17 +26,17 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser == BrowserType.FIREFOX){
+    if (browser.equals(BrowserType.FIREFOX)){
       wd = new FirefoxDriver(); //инициализация браузера
     }
-    else if (browser == BrowserType.CHROME){
+    else if (browser.equals(BrowserType.CHROME)){
       wd = new ChromeDriver();
     }
-    else if(browser == BrowserType.IE){
+    else if(browser.equals(BrowserType.IE)){
       wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/group.php");
+    wd.get("http://localhost:8080/addressbook/group.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
