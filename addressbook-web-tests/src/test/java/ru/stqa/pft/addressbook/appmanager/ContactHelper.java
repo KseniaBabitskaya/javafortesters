@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Ксюшенька on 01.03.2016.
  */
@@ -56,5 +58,16 @@ public class ContactHelper extends HelperBase{
 
     public void submitModification() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+    }
+
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
+    }
+
+    public boolean isThereAContact() {
+        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        return isElementPresent(By.name("selected[]"));
     }
 }
