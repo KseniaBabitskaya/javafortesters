@@ -67,7 +67,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public boolean isThereAContact() {
-        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+//        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return isElementPresent(By.name("selected[]"));
     }
 }
