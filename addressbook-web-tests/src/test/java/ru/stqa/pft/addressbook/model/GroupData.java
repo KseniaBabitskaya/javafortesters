@@ -1,66 +1,71 @@
 package ru.stqa.pft.addressbook.model;
 
 public class GroupData {
-    private final String id;
-    private final String name;
-    private final String header;
-    private final String footer;
+  private final String name;
+  private final String header;
+  private final String footer;
+  private int id;
+  public GroupData(String name, String header, String footer) {
+    this.id = 0;
+    this.name = name;
+    this.header = header;
+    this.footer = footer;
+  }
 //    private String group;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+  public GroupData(int id, String name, String header, String footer) {
+    this.id = id;
+    this.name = name;
+    this.header = header;
+    this.footer = footer;
+  }
 
-        GroupData groupData = (GroupData) o;
+  public String getName() {
+    return name;
+  }
 
-        if (id != null ? !id.equals(groupData.id) : groupData.id != null) return false;
-        return name != null ? name.equals(groupData.name) : groupData.name == null;
+  public String getHeader() {
+    return header;
+  }
 
-    }
+  public String getFooter() {
+    return footer;
+  }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
-    }
+  @Override
+  public String toString() {
+    return "GroupData{" +
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            '}';
+  }
 
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
+  public int getId() {
+    return id;
+  }
 
-    public String getId() {
-        return id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public GroupData(String name, String header, String footer) {
-        this.id = null;
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-    }
-    public GroupData(String id, String name, String header, String footer) {
-        this.id = id;
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-    public String getName() {
-        return name;
-    }
+    GroupData groupData = (GroupData) o;
 
-    public String getHeader() {
-        return header;
-    }
+    if (id != groupData.id) return false;
+    return name != null ? name.equals(groupData.name) : groupData.name == null;
 
-    public String getFooter() {
-        return footer;
-    }
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
+  }
+
 
 }
