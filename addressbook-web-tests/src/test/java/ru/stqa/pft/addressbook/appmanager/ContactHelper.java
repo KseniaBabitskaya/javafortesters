@@ -8,7 +8,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,7 +25,6 @@ public class ContactHelper extends HelperBase{
 
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
-        type(By.name("middlename"), contactData.getMiddlename());
         type(By.name("lastname"), contactData.getLastname());
         if (creation){
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -69,5 +71,17 @@ public class ContactHelper extends HelperBase{
     public boolean isThereAContact() {
 //        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> rows = wd.findElements(By.tagName("tr"));
+        for (int i =1; i < rows.size(); i++){
+            String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
+            int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id, lastname , null, null);
+            contacts.add(contact);
+        }
+         return contacts;
     }
 }
