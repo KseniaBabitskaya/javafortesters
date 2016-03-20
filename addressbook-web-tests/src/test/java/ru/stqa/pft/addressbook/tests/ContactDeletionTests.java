@@ -22,18 +22,15 @@ public class ContactDeletionTests extends TestBase {
     }
     app.getContactHelper().selectContact(before.size() - 1);
     app.getContactHelper().submitContactDeletion();
+    app.getNavigationHelper().gotoHomePage();
 
     List<ContactData> after = app.getContactHelper().getContactList(); //создаем список контакто после
-
     before.remove(before.size()-1); //удаляем последний контакт
-
     Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());//сравниваем id для дальнейшей сортировки
     before.sort(byId);
     after.sort(byId);
-
     Assert.assertEquals(before, after);
 
-    app.getNavigationHelper().gotoHomePage();
   }
 
 
