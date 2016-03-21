@@ -15,7 +15,7 @@ public class ContactCreationTest extends TestBase{
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
 
-        ContactData contact = new ContactData("Name1", "Name2", "test1");
+        ContactData contact = new ContactData("Name1", "Name1", "test1");
         app.getContactHelper().createContact(contact);
         app.getNavigationHelper().gotoHomePage();
 

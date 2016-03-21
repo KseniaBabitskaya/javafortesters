@@ -22,7 +22,7 @@ public class ContactHelper extends HelperBase{
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
-        type(By.name("group"), contactData.getGroup());
+//        type(By.name("group"), contactData.getGroup());
         if (creation){
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         }
@@ -42,7 +42,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void selectContact(int index) {
-      wd.findElements(By.name("selected[]")).get(index).click();
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void submitContactDeletion() {
@@ -51,8 +51,9 @@ public class ContactHelper extends HelperBase{
 
     }
 
-    public void clickEditContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    public void clickEditContact(int number) {
+        String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
+        click(By.xpath(locator));
     }
 
     public void submitModification() {
@@ -77,7 +78,7 @@ public class ContactHelper extends HelperBase{
             String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
             String firstname= rows.get(i).findElements(By.tagName("td")).get(2).getText();
             int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(id, lastname , firstname, null);
+            ContactData contact = new ContactData(id, firstname , lastname, null);
             contacts.add(contact);
         }
          return contacts;

@@ -13,7 +13,7 @@ public class ContactData {
     this.group = group;
   }
 
-  public ContactData(int id, String lastname, String firstname, String group) {
+  public ContactData(int id, String firstname, String lastname, String group) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
