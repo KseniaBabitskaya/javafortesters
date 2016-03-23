@@ -16,16 +16,13 @@ public class ContactDeletionTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().homePage();
     if (!(app.contact().list().size() == 0)) {
-      app.contact().create(new ContactData("Name1", "Name1", "test1"));
+      app.contact().create(new ContactData().withFirstname("Name1").withLastname("Name2").withGroup("test1"));
     }
   }
 
   @Test
   public void testContactDeletion() {
     app.goTo().homePage();
-    if (!app.contact().isThereAContact()) {
-      app.contact().create(new ContactData("Name1", "Name2", "test1"));
-    }
     List<ContactData> before = app.contact().list(); //создаем список контактов до
     int index = before.size() - 1;
     app.contact().delete(index);
