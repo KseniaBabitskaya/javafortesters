@@ -13,20 +13,20 @@ import java.util.List;
 public class ContactModificationTests extends TestBase {
   @Test (enabled = false)
   public void testsContactModification() {
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     if (!app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Name1", "Name1", "test1"));
     }
 
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
 //    app.getContactHelper().selectContact(before.size() - 1);
     app.getContactHelper().clickEditContact(before.size()+1);
     ContactData contact = new ContactData((before.get(before.size() - 1).getId()), "Name2", "Name2", "test1");
     app.getContactHelper().fillContactForm(contact, false);
     app.getContactHelper().submitModification();
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
 
 //    contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     before.remove(before.size() - 1);

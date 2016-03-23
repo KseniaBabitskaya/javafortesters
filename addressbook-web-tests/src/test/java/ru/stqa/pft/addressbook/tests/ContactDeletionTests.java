@@ -13,7 +13,7 @@ import java.util.List;
 public class ContactDeletionTests extends TestBase {
     @Test(enabled = false)
     public void testContactDeletion() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList(); //создаем список контактов до
 
         if (!app.getContactHelper().isThereAContact()) {
@@ -21,7 +21,7 @@ public class ContactDeletionTests extends TestBase {
         }
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().submitContactDeletion();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
 
         List<ContactData> after = app.getContactHelper().getContactList(); //создаем список контакто после
         before.remove(before.size() - 1); //удаляем последний контакт

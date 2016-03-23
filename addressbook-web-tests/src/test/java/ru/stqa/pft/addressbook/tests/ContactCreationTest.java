@@ -11,12 +11,12 @@ public class ContactCreationTest extends TestBase {
 
     @Test(enabled = false)
     public void ContactCreationTest() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
 
         ContactData contact = new ContactData("Name1", "Name1", "test1");
         app.getContactHelper().createContact(contact);
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
 
         List<ContactData> after = app.getContactHelper().getContactList();
         contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
