@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Ксюшенька on 01.03.2016.
@@ -43,6 +45,9 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
 
   public void submitContactDeletion() {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
@@ -70,17 +75,27 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void modify(ContactData contact, int index) {
-
-    clickEditContact(index);
-    fillContactForm(contact, false);
-    submitModification();
-
-  }
+//  public void modify(ContactData contact, int id) {
+//
+//    clickEditContact(id);
+//    fillContactForm(contact, false);
+//    submitModification();
+//  }
   public void delete(int index) {
     selectContact(index);
     submitContactDeletion();
   }
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    submitContactDeletion();
+  }
+//
+//  public void modify(ContactData contact, int id) {
+//    fillContactForm(contact, false);
+//    submitModification();
+//  }
+
 
   public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
@@ -94,4 +109,18 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    List<WebElement> rows = wd.findElements(By.tagName("tr"));
+    for (int i = 1; i < rows.size(); i++) {
+      String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
+      String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
+      int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
+      contacts.add(contact);
+    }
+    return contacts;
+  }
+
+
 }
