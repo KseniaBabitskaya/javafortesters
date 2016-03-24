@@ -51,6 +51,17 @@ public class ContactData {
   }
 
   @Override
+
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", lastname='" + lastname + '\'' +
+            ", firstname='" + firstname + '\'' +
+            '}';
+  }
+
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -70,16 +81,4 @@ public class ContactData {
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
   }
-
-  @Override
-
-  public String toString() {
-    return "ContactData{" +
-            "id=" + id +
-            ", lastname='" + lastname + '\'' +
-            ", firstname='" + firstname + '\'' +
-            '}';
-  }
-
-
 }

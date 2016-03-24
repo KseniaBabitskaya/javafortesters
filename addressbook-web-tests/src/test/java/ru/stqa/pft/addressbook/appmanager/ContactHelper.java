@@ -46,7 +46,14 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
   public void selectContactById(int id) {
-    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+  }
+  public void modify(ContactData contact) {
+//    clickEditContact(contact.getId());
+    clickEditContact();
+//    selectContactById(contact.getId());
+    fillContactForm(contact, false);
+    submitModification();
   }
 
   public void submitContactDeletion() {
@@ -55,8 +62,12 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void clickEditContact(int number) {
-    String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
+//  public void clickEditContact(int number) {
+//    String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
+//    click(By.xpath(locator));
+//  }
+  public void clickEditContact() {
+    String locator = "//table[@id='maintable']/tbody/tr[8]/td[8]/a/img";
     click(By.xpath(locator));
   }
 
@@ -90,25 +101,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     submitContactDeletion();
   }
-//
-//  public void modify(ContactData contact, int id) {
-//    fillContactForm(contact, false);
-//    submitModification();
-//  }
 
-
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<>();
-    List<WebElement> rows = wd.findElements(By.tagName("tr"));
-    for (int i = 1; i < rows.size(); i++) {
-      String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
-      String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
-      int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
-      contacts.add(contact);
-    }
-    return contacts;
-  }
   public Set<ContactData> all() {
     Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> rows = wd.findElements(By.tagName("tr"));
