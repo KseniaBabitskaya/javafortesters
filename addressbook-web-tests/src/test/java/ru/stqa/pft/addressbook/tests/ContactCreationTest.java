@@ -10,14 +10,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationTest extends TestBase {
 
   @Test (enabled = true)
-  public void ContactCreationTest() {
+  public void testContactCreationTest() {
     app.goTo().homePage();
     Contacts before = app.contact().all();
 
     ContactData contact = new ContactData().withFirstname("Name1").withLastname("Name2").withGroup("test1");
     app.contact().create(contact);
     app.goTo().homePage();
-
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
 //    assertThat(after, equalTo(before.size() + 1));
 
@@ -26,4 +26,18 @@ public class ContactCreationTest extends TestBase {
 
   }
 
+  @Test (enabled = true)
+  public void testBadContactCreationTest() {
+    app.goTo().homePage();
+    Contacts before = app.contact().all();
+
+    ContactData contact = new ContactData().withFirstname("Name1'").withLastname("Name2").withGroup("test1");
+    app.contact().create(contact);
+//    app.goTo().homePage();
+
+    assertThat(app.contact().count(), equalTo(before.size()));
+    Contacts after = app.contact().all();
+    assertThat(after, equalTo(before));
+
+  }
 }
