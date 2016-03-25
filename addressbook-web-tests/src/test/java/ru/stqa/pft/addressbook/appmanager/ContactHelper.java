@@ -48,18 +48,9 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
 
-  public void modify(ContactData contact) {
-//    initContatModification(contact.getId());
-    initContatModification();
-//    initContactModificationByRowIndex(contact.getId());
-//    selectContactById(contact.getId());
-    fillContactForm(contact, false);
-    submitModification();
-    returnToHomePage();
-  }
-
   private void returnToHomePage() {
-    click(By.xpath("//div[@class='msgbox']//a[.='home page']"));
+      click(By.linkText("home"));
+//    click(By.xpath("//div[@class='msgbox']//a[.='home page']"));
   }
 
   public void submitContactDeletion() {
@@ -69,62 +60,60 @@ public class ContactHelper extends HelperBase {
   }
 
   //  public void initContatModification(int number) {
-//    String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
-//    click(By.xpath(locator));
-//  }
+
   public void initContatModification() {
-//    String locator = "//table[@id='maintable']/tbody/tr[2]/td[8]/a/img";
     String locator = "/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]";
     click(By.xpath(locator));
   }
 
-  public void initContactModificationByRowIndex(int rowIndex) {
-    click(By.xpath(".//*[@id='maintable']/tbody/tr[" + rowIndex + "]/td[7]/a/img"));
-  }
-
-
   public void submitModification() {
     click(By.name("update"));
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 
   public void create(ContactData contact) {
     initContactCreation();
     fillContactForm(contact, true);
     submitContactCreation();
+    contactCache = null;
+    returnToHomePage();
   }
 
-  public boolean isThereAContact() {
-//        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-    return isElementPresent(By.name("selected[]"));
-  }
 
-  //  public void modify(ContactData contact, int id) {
-//
-//    initContatModification(id);
-//    fillContactForm(contact, false);
-//    submitModification();
-//  }
-  public void delete(int index) {
-    selectContact(index);
-    submitContactDeletion();
+  public void modify(ContactData contact) {
+    initContatModification();
+    fillContactForm(contact, false);
+    submitModification();
+    contactCache = null;
+    returnToHomePage();
   }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     submitContactDeletion();
+    contactCache = null;
+    returnToHomePage();
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache != null){
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     List<WebElement> rows = wd.findElements(By.tagName("tr"));
     for (int i = 1; i < rows.size(); i++) {
       String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
       String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
       int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
-      contacts.add(contact);
+      contactCache.add(contact);
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 
 
