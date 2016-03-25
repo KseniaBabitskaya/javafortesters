@@ -25,16 +25,17 @@ public class GroupData {
     return footer;
   }
 
+  public int getId() {
+    return id;
+  }
+
+
   @Override
   public String toString() {
     return "GroupData{" +
             "id='" + id + '\'' +
             ", name='" + name + '\'' +
             '}';
-  }
-
-  public int getId() {
-    return id;
   }
 
   public GroupData withID(int id) {

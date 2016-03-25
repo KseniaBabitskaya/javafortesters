@@ -34,7 +34,6 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;

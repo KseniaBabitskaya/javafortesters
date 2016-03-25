@@ -6,10 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Ксюшенька on 01.03.2016.
@@ -44,13 +43,15 @@ public class ContactHelper extends HelperBase {
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
+
   public void selectContactById(int id) {
     wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
+
   public void modify(ContactData contact) {
 //    initContatModification(contact.getId());
-//    initContatModification();
-    initContactModificationByRowIndex(contact.getId());
+    initContatModification();
+//    initContactModificationByRowIndex(contact.getId());
 //    selectContactById(contact.getId());
     fillContactForm(contact, false);
     submitModification();
@@ -67,18 +68,18 @@ public class ContactHelper extends HelperBase {
 
   }
 
-//  public void initContatModification(int number) {
+  //  public void initContatModification(int number) {
 //    String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
 //    click(By.xpath(locator));
 //  }
   public void initContatModification() {
 //    String locator = "//table[@id='maintable']/tbody/tr[2]/td[8]/a/img";
-    String locator = "/html/body/div/div[4]/form[2]/table/tbody/tr[2]";
+    String locator = "/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]";
     click(By.xpath(locator));
   }
 
   public void initContactModificationByRowIndex(int rowIndex) {
-    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ rowIndex +"]/td[7]/a/img"));
+    click(By.xpath(".//*[@id='maintable']/tbody/tr[" + rowIndex + "]/td[7]/a/img"));
   }
 
 
@@ -97,7 +98,7 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-//  public void modify(ContactData contact, int id) {
+  //  public void modify(ContactData contact, int id) {
 //
 //    initContatModification(id);
 //    fillContactForm(contact, false);
@@ -113,8 +114,8 @@ public class ContactHelper extends HelperBase {
     submitContactDeletion();
   }
 
-  public Set<ContactData> all() {
-    Set<ContactData> contacts = new HashSet<ContactData>();
+  public Contacts all() {
+    Contacts contacts = new Contacts();
     List<WebElement> rows = wd.findElements(By.tagName("tr"));
     for (int i = 1; i < rows.size(); i++) {
       String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
