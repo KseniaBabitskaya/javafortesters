@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,11 +48,17 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
   public void modify(ContactData contact) {
-//    clickEditContact(contact.getId());
-    clickEditContact();
+//    initContatModification(contact.getId());
+//    initContatModification();
+    initContactModificationByRowIndex(contact.getId());
 //    selectContactById(contact.getId());
     fillContactForm(contact, false);
     submitModification();
+    returnToHomePage();
+  }
+
+  private void returnToHomePage() {
+    click(By.xpath("//div[@class='msgbox']//a[.='home page']"));
   }
 
   public void submitContactDeletion() {
@@ -62,14 +67,20 @@ public class ContactHelper extends HelperBase {
 
   }
 
-//  public void clickEditContact(int number) {
+//  public void initContatModification(int number) {
 //    String locator = "//table[@id='maintable']/tbody/tr[" + number + "]/td[8]/a/img";
 //    click(By.xpath(locator));
 //  }
-  public void clickEditContact() {
-    String locator = "//table[@id='maintable']/tbody/tr[8]/td[8]/a/img";
+  public void initContatModification() {
+//    String locator = "//table[@id='maintable']/tbody/tr[2]/td[8]/a/img";
+    String locator = "/html/body/div/div[4]/form[2]/table/tbody/tr[2]";
     click(By.xpath(locator));
   }
+
+  public void initContactModificationByRowIndex(int rowIndex) {
+    click(By.xpath(".//*[@id='maintable']/tbody/tr["+ rowIndex +"]/td[7]/a/img"));
+  }
+
 
   public void submitModification() {
     click(By.name("update"));
@@ -88,7 +99,7 @@ public class ContactHelper extends HelperBase {
 
 //  public void modify(ContactData contact, int id) {
 //
-//    clickEditContact(id);
+//    initContatModification(id);
 //    fillContactForm(contact, false);
 //    submitModification();
 //  }
