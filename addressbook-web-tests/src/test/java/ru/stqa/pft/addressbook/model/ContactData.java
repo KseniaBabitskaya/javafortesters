@@ -9,6 +9,7 @@ public class ContactData {
     private String mobilePhone;
     private String workPhone;
     private String allPhones;
+    private String allAddresses;
 
     public String getFirstname() {
         return firstname;
@@ -49,6 +50,10 @@ public class ContactData {
         return allPhones;
     }
 
+    public String getAllAddresses() {
+        return allAddresses;
+    }
+
     public ContactData withId(int id) {
         this.id = id;
         return this;
@@ -74,11 +79,11 @@ public class ContactData {
         return this;
     }
 
-
     public ContactData withMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
         return this;
     }
+
 
     public ContactData withWorkPhone(String workPhone) {
         this.workPhone = workPhone;
@@ -87,6 +92,11 @@ public class ContactData {
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withAllAddresses(String allAddresses) {
+        this.allAddresses = allAddresses;
         return this;
     }
 
