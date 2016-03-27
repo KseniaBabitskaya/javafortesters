@@ -1,12 +1,9 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Created by Ксюшенька on 26.03.2016.
  */
 public class ContactPhoneTests extends TestBase {
-    @Test
+    @Test (enabled = true)
     public void testContactPhones() {
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
