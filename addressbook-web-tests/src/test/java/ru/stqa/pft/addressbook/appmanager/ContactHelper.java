@@ -61,7 +61,10 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContatModificationById(int id) {
+//        wd.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[7]/a/img")).click();
+//        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img")).click();
         wd.findElement((By.cssSelector(String.format("a[href='edit.php?id=%s']", id)))).click();
+//        wd.findElement(By.xpath(String.format("//table[@id='maintable']/tbody/tr[2]/td['%s']/a/img", id))).click();
     }
 
     public void submitModification() {
@@ -98,6 +101,27 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
+    //    public Contacts all() {
+//        if (contactCache != null) {
+//            return new Contacts(contactCache);
+//        }
+//        contactCache = new Contacts();
+//        List<WebElement> rows = wd.findElements(By.tagName("tr"));
+//        for (int i = 1; i < rows.size(); i++) {
+//            String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
+//            String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
+//            int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
+//            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
+//            contactCache.add(contact);
+//        }
+//        return new Contacts(contactCache);
+
+    private void initContactDetailsFormById(int id) {
+//        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img")).click();
+        wd.findElement(By.xpath(String.format("//table[@id='maintable']/tbody/tr[2]/td['%s']/a/img", id))).click();
+//        wd.findElement((By.xpath(String.format("//div/div[4]/form[2]/table/tbody/tr[2]/td[%s]", id)))).click();
+//        wd.findElement((By.cssSelector(String.format("a[href='view.php?id=%s']", id)))).click();
+    }
     public Contacts all() {
         if (contactCache != null) {
             return new Contacts(contactCache);
@@ -120,24 +144,12 @@ public class ContactHelper extends HelperBase {
         }
         return new Contacts(contactCache);
     }
-//    public Contacts all() {
-//        if (contactCache != null) {
-//            return new Contacts(contactCache);
-//        }
-//        contactCache = new Contacts();
-//        List<WebElement> rows = wd.findElements(By.tagName("tr"));
-//        for (int i = 1; i < rows.size(); i++) {
-//            String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
-//            String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
-//            int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
-//            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
-//            contactCache.add(contact);
-//        }
-//        return new Contacts(contactCache);
+
+
 //    }
 
-
     public ContactData infoFromEditForm(ContactData contact) {
+        returnToHomePage();
         initContatModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
@@ -153,4 +165,17 @@ public class ContactHelper extends HelperBase {
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAllAddresses(address)
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
     }
+
+    public ContactData infoFromDetailsForm(ContactData contact) {
+        initContactDetailsFormById(contact.getId());
+        String allDetails = wd.findElement(By.cssSelector("div#content")).getText();
+        String[] details = allDetails.split("\n");
+        return new ContactData().withId(contact.getId()).withFirstname(details[0]).withLastname(details[0])
+                .withAllAddresses(details[1]).withHomePhone(details[2]).withMobilePhone(details[3])
+                .withWorkPhone(details[4]).withEmail(details[5]).withEmail2(details[6]).withEmail2(details[7]);
+    }
+//
+//    private String cleaned(String details){
+//        return details.replaceAll(" ", "\n");
+//    }
 }
