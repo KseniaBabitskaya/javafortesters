@@ -24,7 +24,7 @@ public class ContactDeletionTests extends TestBase {
     }
   }
 
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void testContactDeletion() {
     app.goTo().homePage();
     Contacts before = app.contact().all(); //создаем список контактов до
