@@ -21,14 +21,8 @@ public class ContactDetailsTests extends TestBase{
         ContactData contactInfoFromDetails = app.contact().infoFromDetailsForm(contact);
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-//        assertThat(contact.getAllDetails(), equalTo(mergeDetails(contactInfoFromEditForm)));
-        assertThat(contactInfoFromDetails, equalTo(mergeDetails(contactInfoFromEditForm)));
+        assertThat(contactInfoFromDetails, equalTo(contactInfoFromEditForm));
     }
 
-    private String mergeDetails(ContactData contact) {
-        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-                .stream().filter((s) -> ! s.equals(""))
-//                .map(ContactPhoneTests::cleaned)
-                .collect(Collectors.joining("\n"));
 }
-}
+
