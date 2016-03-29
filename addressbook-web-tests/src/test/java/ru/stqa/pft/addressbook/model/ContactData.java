@@ -11,22 +11,15 @@ public class ContactData {
   @Expose
   private String lastname;
   private String group;
-  @Expose
   private String homePhone;
-  @Expose
   private String mobilePhone;
-  @Expose
   private String workPhone;
   private String allPhones;
-  @Expose
   private String allAddresses;
   private String allEmails;
   private String allDetails;
-  @Expose
   private String email;
-  @Expose
   private String email2;
-  @Expose
   private String email3;
   private File photo;
 
@@ -75,13 +68,6 @@ public class ContactData {
     return homePhone;
   }
 
-  //  }
-//    this.group = group;
-//    this.lastname = lastname;
-//    this.firstname = firstname;
-//    this.id = id;
-//  public ContactData(int id, String firstname, String lastname, String group) {
-//
   public String getAllPhones() {
     return allPhones;
   }

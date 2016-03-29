@@ -102,7 +102,6 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  private Contacts contactCache = null;
 
   //    public Contacts all() {
 //        if (contactCache != null) {
@@ -125,6 +124,7 @@ public class ContactHelper extends HelperBase {
 //        wd.findElement((By.xpath(String.format("//div/div[4]/form[2]/table/tbody/tr[2]/td[%s]", id)))).click();
 //        wd.findElement((By.cssSelector(String.format("a[href='view.php?id=%s']", id)))).click();
   }
+  private Contacts contactCache = null;
 
   public Contacts all() {
     if (contactCache != null) {

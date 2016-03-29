@@ -58,8 +58,10 @@ public class ContactDataGenerator {
     List<ContactData> contacts = new ArrayList<ContactData>();
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstname(String.format("FirstName %s", i)).withLastname(String.format("LastName %s", i))
-              .withHomePhone("111").withMobilePhone("222").withWorkPhone("333").withAllAddresses("spb")
-              .withEmail(String.format("%s@c.o", i)).withEmail2(String.format("%s@c.o", i)).withEmail3(String.format("%s@c.o", i)));
+//              .withAllPhones(String.format("111 222 333")).withAllAddresses(String.format("spb")).withAllEmails(String.format("q@q.q w@w.w e@e.e"))
+//              .withHomePhone("111").withMobilePhone("222").withWorkPhone("333").withAllAddresses("spb")
+//              .withEmail(String.format("%s@c.o", i)).withEmail2(String.format("%s@c.o", i)).withEmail3(String.format("%s@c.o", i))
+      );
     }
     return contacts;
   }
