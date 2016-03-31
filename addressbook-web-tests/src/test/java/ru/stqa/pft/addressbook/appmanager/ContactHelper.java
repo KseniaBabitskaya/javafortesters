@@ -26,6 +26,7 @@ public class ContactHelper extends HelperBase {
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
+    type(By.name("email"), contactData.getEmail());
     attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
@@ -103,50 +104,36 @@ public class ContactHelper extends HelperBase {
   }
 
 
-  //    public Contacts all() {
-//        if (contactCache != null) {
-//            return new Contacts(contactCache);
-//        }
-//        contactCache = new Contacts();
-//        List<WebElement> rows = wd.findElements(By.tagName("tr"));
-//        for (int i = 1; i < rows.size(); i++) {
-//            String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
-//            String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
-//            int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
-//            ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname);
-//            contactCache.add(contact);
-//        }
-//        return new Contacts(contactCache);
 
-  private void initContactDetailsFormById(int id) {
-//        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img")).click();
-    wd.findElement(By.xpath(String.format("//table[@id='maintable']/tbody/tr[2]/td['%s']/a/img", id))).click();
-//        wd.findElement((By.xpath(String.format("//div/div[4]/form[2]/table/tbody/tr[2]/td[%s]", id)))).click();
-//        wd.findElement((By.cssSelector(String.format("a[href='view.php?id=%s']", id)))).click();
-  }
   private Contacts contactCache = null;
-
   public Contacts all() {
     if (contactCache != null) {
       return new Contacts(contactCache);
     }
     contactCache = new Contacts();
 
-    List<WebElement> rows = wd.findElements(By.name("entry"));
-    for (WebElement row : rows) {
-      List<WebElement> cells = row.findElements(By.tagName("td"));
-      int id = Integer.parseInt(rows.get(0).findElement(By.tagName("input")).getAttribute("value"));
-      String lastname = cells.get(1).getText();
-      String firstname = cells.get(2).getText();
-      String allPhones = cells.get(5).getText();
-      String allAddresses = cells.get(3).getText();
-      String allEmails = cells.get(4).getText();
+    List<WebElement> rows = wd.findElements(By.tagName("tr"));
+    for (int i = 1; i < rows.size(); i++) {
+//      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(rows.get(i).findElement(By.tagName("input")).getAttribute("value"));
+      String lastname = rows.get(i).findElements(By.tagName("td")).get(1).getText();
+      String firstname = rows.get(i).findElements(By.tagName("td")).get(2).getText();
+      String allAddresses = rows.get(i).findElements(By.tagName("td")).get(3).getText();
+      String allEmails = rows.get(i).findElements(By.tagName("td")).get(4).getText();
+      String allPhones = rows.get(i).findElements(By.tagName("td")).get(5).getText();
 
       ContactData contact = new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
               .withAllPhones(allPhones).withAllAddresses(allAddresses).withAllEmails(allEmails);
       contactCache.add(contact);
     }
     return new Contacts(contactCache);
+  }
+
+  private void initContactDetailsFormById(int id) {
+//        wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img")).click();
+    wd.findElement(By.xpath(String.format("//table[@id='maintable']/tbody/tr[2]/td['%s']/a/img", id))).click();
+//        wd.findElement((By.xpath(String.format("//div/div[4]/form[2]/table/tbody/tr[2]/td[%s]", id)))).click();
+//        wd.findElement((By.cssSelector(String.format("a[href='view.php?id=%s']", id)))).click();
   }
 
 
