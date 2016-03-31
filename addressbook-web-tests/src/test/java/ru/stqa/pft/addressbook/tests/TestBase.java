@@ -10,16 +10,17 @@ import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
  */
 public class TestBase {
 
-    static protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+  static protected final ApplicationManager app
+          = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
-    @BeforeSuite
-    public void setUp() throws Exception {
-        app.init();
-    }
+  @BeforeSuite
+  public void setUp() throws Exception {
+    app.init();
+  }
 
-    @AfterSuite
-    public void tearDown() {
-        app.stop();
-    }
+  @AfterSuite
+  public void tearDown() {
+    app.stop();
+  }
 
 }
