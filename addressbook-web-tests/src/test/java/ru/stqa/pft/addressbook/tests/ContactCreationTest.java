@@ -30,23 +30,25 @@ public class ContactCreationTest extends TestBase {
         line = reader.readLine();
       }
       Gson gson = new Gson();
-      List<ContactData> groups = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+      List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
       }.getType());
-      return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+      return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
   }
 
   @Test(dataProvider = "validGroupsFromJson", enabled = true)
   public void testContactCreationTest(ContactData contact) {
     app.goTo().homePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
+//    Contacts before = app.contact().all();
 //    File photo = new File("src/test/resources/pic.png");
 //    ContactData contact = new ContactData().withFirstname("Name1").withLastname("Name2").withPhoto(photo);
     app.contact().create(contact);
     app.goTo().homePage();
     System.out.println(app.contact().count());
     assertThat(app.group().count(), equalTo(before.size() + 1));
-    Contacts after = app.contact().all();
+//    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before
             .withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
