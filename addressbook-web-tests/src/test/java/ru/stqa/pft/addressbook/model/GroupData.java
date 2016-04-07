@@ -5,18 +5,17 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table (name = "group_list")
+@Table(name = "group_list")
 @XStreamAlias("group")
 public class GroupData {
   @XStreamOmitField
   @Id
-  @Column (name = "group_id")
+  @Column(name = "group_id")
   private int id = Integer.MAX_VALUE;
   @Expose
   @Column(name = "group_name")
@@ -30,10 +29,15 @@ public class GroupData {
   @Type(type = "text")
   private String footer;
 
+  @ManyToMany(mappedBy = "groups")
+  private Set<ContactData> contacts = new HashSet<ContactData>();
+
 //  public GroupData(int id, String name, String header, String footer) {
 //    this.id = id;
 //    this.name = name;
 //    this.header = header;
+
+
 //    this.footer = footer;
 //  }
 
@@ -51,6 +55,30 @@ public class GroupData {
 
   public int getId() {
     return id;
+  }
+
+  public void setContacts(Set<ContactData> contacts) {
+    this.contacts = contacts;
+  }
+
+  public GroupData withID(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public GroupData withName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public GroupData withHeader(String header) {
+    this.header = header;
+    return this;
+  }
+
+  public GroupData withFooter(String footer) {
+    this.footer = footer;
+    return this;
   }
 
   @Override
@@ -84,24 +112,5 @@ public class GroupData {
             '}';
   }
 
-  public GroupData withID(int id) {
-    this.id = id;
-    return this;
-  }
-
-  public GroupData withName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public GroupData withHeader(String header) {
-    this.header = header;
-    return this;
-  }
-
-  public GroupData withFooter(String footer) {
-    this.footer = footer;
-    return this;
-  }
 
 }

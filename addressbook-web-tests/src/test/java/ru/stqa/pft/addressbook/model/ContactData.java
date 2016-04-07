@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -18,9 +20,6 @@ public class ContactData {
   @Expose
   @Column(name = "lastname")
   private String lastname;
-
-  @Transient
-  private String group;
 
   @Column(name = "home")
   @Type(type = "text")
@@ -43,7 +42,7 @@ public class ContactData {
   @Transient
   private String allDetails;
   @Expose
-  @Column (name = "email")
+  @Column(name = "email")
   @Type(type = "text")
   private String email;
   @Transient
@@ -53,6 +52,10 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+
+  @ManyToMany
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public ContactData() {
   }
@@ -75,11 +78,6 @@ public class ContactData {
 
   public String getEmail3() {
     return email3;
-
-  }
-
-  public String getGroup() {
-    return group;
 
   }
 
@@ -125,6 +123,10 @@ public class ContactData {
     return this;
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
   public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
@@ -132,11 +134,6 @@ public class ContactData {
 
   public ContactData withLastname(String lastname) {
     this.lastname = lastname;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -196,6 +193,7 @@ public class ContactData {
     return this;
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -216,6 +214,7 @@ public class ContactData {
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
   }
+
   @Override
   public String toString() {
     return "ContactData{" +
@@ -224,5 +223,10 @@ public class ContactData {
             ", lastname='" + lastname + '\'' +
             ", email='" + email + '\'' +
             '}';
+  }
+
+  public ContactData inGroup(GroupData group){
+    groups.add(group);
+    return this;
   }
 }
