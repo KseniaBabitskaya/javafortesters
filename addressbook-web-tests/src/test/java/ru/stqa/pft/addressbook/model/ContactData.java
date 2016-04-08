@@ -123,6 +123,15 @@ public class ContactData {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "groups=" + groups +
+            '}';
+  }
+
+
+
   public Groups getGroups() {
     return new Groups(groups);
   }
@@ -194,6 +203,7 @@ public class ContactData {
   }
 
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -213,16 +223,6 @@ public class ContactData {
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
     return result;
-  }
-
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "id=" + id +
-            ", firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            ", email='" + email + '\'' +
-            '}';
   }
 
   public ContactData inGroup(GroupData group){
