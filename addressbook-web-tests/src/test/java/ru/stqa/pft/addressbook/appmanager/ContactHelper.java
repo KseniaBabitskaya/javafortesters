@@ -30,10 +30,10 @@ public class ContactHelper extends HelperBase {
 //    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
-      if (contactData.getGroups() != null) {
-        Assert.assertTrue(contactData.getGroups().size() ==1);
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-    }
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -110,8 +110,8 @@ public class ContactHelper extends HelperBase {
   }
 
 
-
   private Contacts contactCache = null;
+
   public Contacts all() {
     if (contactCache != null) {
       return new Contacts(contactCache);
@@ -183,26 +183,22 @@ public class ContactHelper extends HelperBase {
 
   }
 
-  public void addToGroup(ContactData contact) {
+  public void addToGroup(ContactData contact, String groupName) {
     selectContactById(contact.getId());
-    chooseGroup();
-//    selectElement(By.xpath("//div[@class='right']/select//option[1]"));
-//    click(By.xpath("//html/body/div/div[4]/form[2]/div[4]/input"));
-//    click(By.xpath("//div[4]/select//option[1]"));
+    chooseGroup(groupName, "to_group");
     click(By.name("add"));
 
   }
 
 
-  public void removeFromGroup(ContactData contact) {
-    selectElement(By.name("group"));
-    chooseGroup();
+  public void removeFromGroup(ContactData contact, String groupName) {
+    chooseGroup(groupName, "group");
     selectContactById(contact.getId());
     click(By.name("remove"));
   }
 
-  private void chooseGroup() {
-    Select dropList = new Select(wd.findElement(By.name("group")));
-    dropList.selectByVisibleText("test 0");
+  public void chooseGroup(String groupName, String locator) {
+    Select dropList = new Select(wd.findElement(By.name(locator)));
+    dropList.selectByVisibleText(groupName);
   }
 }

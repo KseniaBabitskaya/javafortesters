@@ -53,7 +53,7 @@ public class ContactData {
   @Type(type = "text")
   private String photo;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
   private Set<GroupData> groups = new HashSet<GroupData>();
 
@@ -123,17 +123,19 @@ public class ContactData {
     return this;
   }
 
-  @Override
-  public String toString() {
-    return "ContactData{" +
-            "groups=" + groups +
-            '}';
-  }
-
-
 
   public Groups getGroups() {
     return new Groups(groups);
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", groups=" + groups +
+            '}';
   }
 
   public ContactData withFirstname(String firstname) {
@@ -203,7 +205,6 @@ public class ContactData {
   }
 
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -225,7 +226,7 @@ public class ContactData {
     return result;
   }
 
-  public ContactData inGroup(GroupData group){
+  public ContactData inGroup(GroupData group) {
     groups.add(group);
     return this;
   }

@@ -28,8 +28,7 @@ public class GroupData {
   @Column(name = "group_footer")
   @Type(type = "text")
   private String footer;
-
-  @ManyToMany(mappedBy = "groups")
+  @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
   private Set<ContactData> contacts = new HashSet<ContactData>();
 
 //  public GroupData(int id, String name, String header, String footer) {
@@ -57,9 +56,10 @@ public class GroupData {
     return id;
   }
 
-  public void setContacts(Set<ContactData> contacts) {
-    this.contacts = contacts;
+  public Set<ContactData> getContacts() {
+    return contacts;
   }
+
 
   public GroupData withID(int id) {
     this.id = id;

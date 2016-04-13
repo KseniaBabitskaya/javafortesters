@@ -53,19 +53,41 @@ public class DbHelper {
     return new Contacts(result);
   }
 
-//  public Contacts contactsInGroups() {
-//    Session session = sessionFactory.openSession();
-//    session.beginTransaction();
-//    java.util.List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+  public ContactData getContactById(int id) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    ContactData result = (ContactData)session.createQuery(String.format("from ContactData where id = '%s'", id)).list().get(0);
 //    for (ContactData contact : result) {
 //      System.out.println(contact);
 //      System.out.println(contact.getGroups());
 //    }
-//    session.getTransaction().commit();
-//    session.close();
-//    return new Contacts(result);
-//
-//  }
+    session.getTransaction().commit();
+    session.close();
+    return result;
+  }
+
+
+  public ContactData getContactByAddress(String address) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    ContactData result = (ContactData)session.createQuery(String.format("from ContactData where address = '%s'", address)).list().get(0);
+//    for (ContactData contact : result) {
+//      System.out.println(contact);
+//      System.out.println(contact.getGroups());
+//    }
+    session.getTransaction().commit();
+    session.close();
+    return result;
+  }
+
+  public GroupData getGroupByName(String groupName) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    GroupData result = (GroupData) session.createQuery(String.format("from GroupData where name = '%s'", groupName)).list().get(0);
+    session.getTransaction().commit();
+    session.close();
+    return result;
+  }
 }
 
 
