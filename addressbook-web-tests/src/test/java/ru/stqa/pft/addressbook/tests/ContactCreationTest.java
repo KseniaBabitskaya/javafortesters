@@ -39,20 +39,21 @@ public class ContactCreationTest extends TestBase {
 
   @Test(dataProvider = "validGroupsFromJson", enabled = true)
   public void testContactCreationTest(ContactData contact) {
-    Contacts before = app.db().contacts();
+    Contacts contactsBefore = app.db().contacts();
     Groups groups = app.db().groups();
     app.goTo().homePage();
+
 //    Contacts before = app.contact().all();
 //    File photo = new File("src/test/resources/pic.png");
 //    ContactData contact = new ContactData().withFirstname("Name1").withLastname("Name2").withPhoto(photo);
+
     app.contact().create(contact.inGroup(groups.iterator().next()));
     app.goTo().homePage();
-    System.out.println(app.contact().count());
-    assertThat(app.group().count(), equalTo(before.size() + 1));
-//    Contacts after = app.contact().all();
-    Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before
-            .withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+
+    Contacts contactsAfter = app.db().contacts();
+    assertThat(contactsAfter.size(), equalTo(contactsBefore.size() + 1));
+    assertThat(contactsAfter, equalTo(contactsBefore
+            .withAdded(contact.withId(contactsAfter.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
   }
 
