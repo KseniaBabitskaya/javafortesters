@@ -33,7 +33,7 @@ public class ContactHelper extends HelperBase {
       if (contactData.getGroups() != null) {
         Assert.assertTrue(contactData.getGroups().size() ==1);
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-    }
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -64,11 +64,6 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
 
   }
-
-  private void selectElement(By name) {
-    wd.findElement(name);
-  }
-
 
   public void initContatModificationById(int id) {
 //        wd.findElement(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[7]/a/img")).click();
@@ -185,24 +180,10 @@ public class ContactHelper extends HelperBase {
 
   public void addToGroup(ContactData contact) {
     selectContactById(contact.getId());
-    chooseGroup();
-//    selectElement(By.xpath("//div[@class='right']/select//option[1]"));
-//    click(By.xpath("//html/body/div/div[4]/form[2]/div[4]/input"));
+    click(By.xpath("//html/body/div/div[4]/form[2]/div[4]/input"));
 //    click(By.xpath("//div[4]/select//option[1]"));
     click(By.name("add"));
 
   }
 
-
-  public void removeFromGroup(ContactData contact) {
-    selectElement(By.name("group"));
-    chooseGroup();
-    selectContactById(contact.getId());
-    click(By.name("remove"));
-  }
-
-  private void chooseGroup() {
-    Select dropList = new Select(wd.findElement(By.name("group")));
-    dropList.selectByVisibleText("test 0");
-  }
 }
