@@ -14,7 +14,7 @@ public class RegistrationHelper {
     wd = app.getDriver();
   }
 
-  public void  start(String username, String emain){
+  public void start(String username, String emain){
     wd.get(app.getProperty("web.baseUrl") + ("/signup_page.php"));
   }
 }
