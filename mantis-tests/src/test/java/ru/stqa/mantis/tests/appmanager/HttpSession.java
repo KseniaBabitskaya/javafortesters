@@ -28,7 +28,7 @@ public class HttpSession {
     httpClient = HttpClients.custom().setRedirectStrategy(new LaxRedirectStrategy()).build();
   }
 
-  public boolean login(java.lang.String username, java.lang.String password) throws IOException {
+  public boolean login(String username, String password) throws IOException {
     HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + ("/login.php"));
     List<NameValuePair> params = new ArrayList<NameValuePair>();
     params.add(new BasicNameValuePair("username", username));
@@ -37,11 +37,11 @@ public class HttpSession {
     params.add(new BasicNameValuePair("return", "index.php"));
     post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpClient.execute(post);
-    java.lang.String body = getTextFrom(response);
-    return body.contains(java.lang.String.format("<span class=italic>%s</span>", username));
+    String body = getTextFrom(response);
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
 
-  private java.lang.String getTextFrom(CloseableHttpResponse response) throws IOException {
+  private String getTextFrom(CloseableHttpResponse response) throws IOException {
     try {
       return EntityUtils.toString(response.getEntity());
     } finally {
@@ -49,11 +49,11 @@ public class HttpSession {
     }
   }
 
-  public boolean isLoggedInAs(java.lang.String username) throws IOException {
+  public boolean isLoggedInAs(String username) throws IOException {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpClient.execute(get);
-    java.lang.String body = getTextFrom(response);
-    return body.contains(java.lang.String.format("<span class=italic>%s</span>", username));
+    String body = getTextFrom(response);
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
 
 }
