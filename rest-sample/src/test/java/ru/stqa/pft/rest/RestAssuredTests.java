@@ -5,29 +5,26 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
-import org.apache.http.client.fluent.Executor;
-import org.apache.http.message.BasicNameValuePair;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Set;
 
-import static org.apache.http.client.fluent.Request.Get;
-import static org.apache.http.client.fluent.Request.Post;
 import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Ксюшенька on 23.04.2016.
  */
-public class RestAssuredTests {
+public class RestAssuredTests extends TestBase {
     @BeforeClass
-    public void init(){
+    public void init() {
         RestAssured.authentication = RestAssured.basic("LSGjeU4yP1X493ud1hNniA==", "");
-        }
+    }
 
     @Test
     public void testCreateIssue() throws IOException {
+        skipIfNotFixed(5);
         Set<Issue> oldIssues = getIssues();
         Issue newIssue = new Issue().withSubject("Test issue").withDescription("New test issue");
         int issueId = createIssue(newIssue);

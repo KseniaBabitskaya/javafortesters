@@ -6,20 +6,19 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.message.BasicNameValuePair;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Set;
 
-import static org.apache.http.client.fluent.Request.*;
 import static org.apache.http.client.fluent.Request.Get;
-import static org.testng.Assert.*;
+import static org.apache.http.client.fluent.Request.Post;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Ксюшенька on 23.04.2016.
  */
-public class RestTests {
+public class RestTests extends TestBase {
     @Test
     public void testCreateIssue() throws IOException {
         Set<Issue> oldIssues = getIssues();
