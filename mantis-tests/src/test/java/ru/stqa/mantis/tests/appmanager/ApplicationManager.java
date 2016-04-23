@@ -93,8 +93,8 @@ public class ApplicationManager {
         return jasonHelper;
     }
 
-    public SoapHelper soap() {
-        if (soapHelper == null) {
+    public SoapHelper soap(){
+        if (soapHelper == null){
             soapHelper = new SoapHelper(this);
         }
         return soapHelper;
